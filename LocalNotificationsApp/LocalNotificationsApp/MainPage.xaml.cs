@@ -25,7 +25,8 @@ namespace LocalNotificationsApp
         private void Button_Clicked(object sender, EventArgs e)
         {
             notificationManager.ScheduleNotification("Local notification",
-                "this notification is used with DependencyService!");
+                "this notification is used with DependencyService!", 2, true,
+                /*new long[] { 300, 180, 60, 420, 300, 120, 60}*/300);
         }
 
         private void GetNotificationData(object sender, EventArgs e)

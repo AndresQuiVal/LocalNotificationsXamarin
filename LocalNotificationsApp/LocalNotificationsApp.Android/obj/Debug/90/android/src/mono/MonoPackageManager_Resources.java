@@ -5,6 +5,7 @@ public class MonoPackageManager_Resources {
 		"LocalNotificationsApp.Android.dll",
 		"FormsViewGroup.dll",
 		"LocalNotificationsApp.dll",
+		"Plugin.CurrentActivity.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

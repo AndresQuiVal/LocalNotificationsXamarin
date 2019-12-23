@@ -11,7 +11,9 @@ using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
+using LocalNotificationsApp.Droid.Broadcast;
 using LocalNotificationsApp.Interfaces;
+using Plugin.CurrentActivity;
 using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
@@ -31,6 +33,7 @@ namespace LocalNotificationsApp.Droid
         bool channelInitialized = false;
         int messageId = -1;
         NotificationManager manager;
+        public static AlarmManager alarmManager;
 
         public event EventHandler NotificationReceived;
 
@@ -39,29 +42,32 @@ namespace LocalNotificationsApp.Droid
             CreateNotificationChannel();
         }
 
-        public int ScheduleNotification(string title, string message)
+        public int ScheduleNotification(
+            string title, 
+            string message, 
+            long startSeconds,
+            bool isRepeated = false,
+            /*long[] intervalSeconds = null*/
+            long intervalSeconds = 0)
         {
             if (!channelInitialized)
                 CreateNotificationChannel();
 
-            messageId++;
-
-            Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
+            NotificationReciever.title = title;
+            NotificationReciever.message = message;
+            AlarmManager alarmManager = (AlarmManager)AndroidApp.Context.GetSystemService(Context.AlarmService);
+            Intent intent = new Intent(AndroidApp.Context, typeof(NotificationReciever)/*typeof(MainActivity)*/);
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
+            intent.AddFlags(ActivityFlags.ClearTop);
 
-            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId, intent, PendingIntentFlags.OneShot);
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, 0, intent, PendingIntentFlags.UpdateCurrent); ;
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
-                .SetContentIntent(pendingIntent)
-                .SetContentTitle(title)
-                .SetContentText(message)
-                .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.OlympiaLogo))
-                .SetSmallIcon(Resource.Drawable.OlympiaLogo)
-                .SetDefaults((int)NotificationDefaults.All | (int)NotificationDefaults.Vibrate);
+            //NotificationReciever.startSeconds = startSeconds;
+            //NotificationReciever.isRepeated = isRepeated;
+            //NotificationReciever.intervalSeconds = intervalSeconds;
 
-            var notification = builder.Build();
-            manager.Notify(messageId, notification);
+            alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime() + (startSeconds * 1000), /*2000, */pendingIntent);
 
             return messageId;
         }
