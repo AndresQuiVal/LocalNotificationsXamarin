@@ -1,4 +1,6 @@
-﻿using LocalNotificationsApp.Interfaces;
+﻿using LocalNotifications.Plugin;
+using LocalNotifications.Plugin.Abstractions;
+using LocalNotificationsApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,9 +26,12 @@ namespace LocalNotificationsApp
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+
             notificationManager.ScheduleNotification("Local notification",
                 "this notification is used with DependencyService!", 2, true,
-                /*new long[] { 300, 180, 60, 420, 300, 120, 60}*/300);
+                new long[] { 120, 180, 60, 420, 300, 120, 60});
+
+            //CrossLocalNotifications.CreateLocalNotifier();
         }
 
         private void GetNotificationData(object sender, EventArgs e)

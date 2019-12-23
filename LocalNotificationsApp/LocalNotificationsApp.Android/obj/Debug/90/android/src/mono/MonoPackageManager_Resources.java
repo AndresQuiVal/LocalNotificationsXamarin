@@ -4,6 +4,8 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "LocalNotificationsApp.Android.dll" comes first in this list. */
 		"LocalNotificationsApp.Android.dll",
 		"FormsViewGroup.dll",
+		"LocalNotifications.Plugin.Abstractions.dll",
+		"LocalNotifications.Plugin.dll",
 		"LocalNotificationsApp.dll",
 		"Plugin.CurrentActivity.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",

@@ -29,10 +29,10 @@ namespace LocalNotificationsApp.Droid.Broadcast
         public const string TitleKey = "title";
         public const string MessageKey = "message";
 
-        //public static long startSeconds;
-        //public static bool isRepeated;
-        //public static long[] intervalSeconds;
-        //private static int counter = ((int)DateTime.Now.DayOfWeek) - 1;
+        public static long startSeconds;
+        public static bool isRepeated;
+        public static long[] intervalSeconds;
+        private static int counter = ((int)DateTime.Now.DayOfWeek) - 1;
 
         int messageId = -1;
         NotificationManager manager;
@@ -43,7 +43,11 @@ namespace LocalNotificationsApp.Droid.Broadcast
             _intent.PutExtra(TitleKey, title);
             _intent.PutExtra(MessageKey, message);
 
-            PendingIntent pendingIntent = PendingIntent.GetActivity(/*CrossCurrentActivity.Current.Activity*/AndroidApp.Context, pendingIntentId, _intent, /*PendingIntentFlags.UpdateCurrent | */PendingIntentFlags.OneShot);
+            PendingIntent pendingIntent = PendingIntent.GetActivity(
+                AndroidApp.Context,
+                pendingIntentId,
+                _intent,
+                PendingIntentFlags.OneShot);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
                .SetContentIntent(pendingIntent)
@@ -58,26 +62,32 @@ namespace LocalNotificationsApp.Droid.Broadcast
             var notification = builder.Build();
             manager.Notify(messageId, notification);
 
-            //AlarmManager alarmManager = 
-            //    (AlarmManager)AndroidApp.Context.GetSystemService(Context.AlarmService);
+            //AndroidNotificationManager.alarmManager.Cancel(
+            //    AndroidNotificationManager.pendingIntent);
 
             //if (isRepeated)
             //{
             //    if (counter >= intervalSeconds.Length)
             //        counter = ((int)DateTime.Now.DayOfWeek) - 1;
 
-            //    alarmManager.SetRepeating(
+            //    AndroidNotificationManager.alarmManager.SetRepeating(
             //       AlarmType.ElapsedRealtimeWakeup,
             //       SystemClock.ElapsedRealtime() + (startSeconds * 1000),
             //       (intervalSeconds[counter++] * 1000),
             //       pendingIntent);
             //    return;
             //}
+            if (counter >= intervalSeconds.Length)
+                counter = ((int)DateTime.Now.DayOfWeek) - 1;
 
-            //alarmManager.Set(
+            var time = intervalSeconds[counter++];
+
+            //AndroidNotificationManager.alarmManager.Set(
             //    AlarmType.ElapsedRealtimeWakeup,
-            //    SystemClock.ElapsedRealtime() + (startSeconds * 1000),
+            //    /*SystemClock.ElapsedRealtime() + (startSeconds * 1000)*/
+            //    (time * 1000),
             //    pendingIntent);
+            AndroidNotificationManager.EstablishNotification(time);
         }
     }
 }

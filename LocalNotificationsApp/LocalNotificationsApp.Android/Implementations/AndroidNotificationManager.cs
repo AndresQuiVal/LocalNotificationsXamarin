@@ -34,6 +34,7 @@ namespace LocalNotificationsApp.Droid
         int messageId = -1;
         NotificationManager manager;
         public static AlarmManager alarmManager;
+        public static PendingIntent pendingIntent;
 
         public event EventHandler NotificationReceived;
 
@@ -47,30 +48,35 @@ namespace LocalNotificationsApp.Droid
             string message, 
             long startSeconds,
             bool isRepeated = false,
-            /*long[] intervalSeconds = null*/
-            long intervalSeconds = 0)
+            long[] intervalSeconds = null)
         {
             if (!channelInitialized)
                 CreateNotificationChannel();
 
             NotificationReciever.title = title;
             NotificationReciever.message = message;
-            AlarmManager alarmManager = (AlarmManager)AndroidApp.Context.GetSystemService(Context.AlarmService);
+            alarmManager = (AlarmManager)AndroidApp.Context.GetSystemService(Context.AlarmService);
             Intent intent = new Intent(AndroidApp.Context, typeof(NotificationReciever)/*typeof(MainActivity)*/);
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
             intent.AddFlags(ActivityFlags.ClearTop);
 
-            PendingIntent pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, 0, intent, PendingIntentFlags.UpdateCurrent); ;
+            pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, 0, intent, PendingIntentFlags.UpdateCurrent);
 
-            //NotificationReciever.startSeconds = startSeconds;
-            //NotificationReciever.isRepeated = isRepeated;
-            //NotificationReciever.intervalSeconds = intervalSeconds;
+            NotificationReciever.startSeconds = startSeconds;
+            NotificationReciever.isRepeated = isRepeated;
+            NotificationReciever.intervalSeconds = intervalSeconds;
 
-            alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime() + (startSeconds * 1000), /*2000, */pendingIntent);
+            EstablishNotification(startSeconds);
 
             return messageId;
         }
+
+        public static void EstablishNotification(long startSeconds)
+            => alarmManager.Set(
+                AlarmType.ElapsedRealtimeWakeup,
+                SystemClock.ElapsedRealtime() + (startSeconds * 1000),
+                /*2000, */pendingIntent);
 
         public void ReceiveNotification(string title, string message)
         {

@@ -6,8 +6,8 @@ C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNot
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\LocalNotificationsApp.AssemblyInfoInputs.cache
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\LocalNotificationsApp.AssemblyInfo.cs
-C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\LocalNotificationsApp.dll
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\ref\LocalNotificationsApp.dll
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\LocalNotificationsApp.pdb
 C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\LocalNotificationsApp.csprojAssemblyReference.cache
+C:\Users\andre\source\repos\LocalNotificationsApp\LocalNotificationsApp\LocalNotificationsApp\obj\Debug\netstandard2.0\XamlC.stamp

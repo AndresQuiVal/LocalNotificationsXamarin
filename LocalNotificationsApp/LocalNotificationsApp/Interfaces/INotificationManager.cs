@@ -13,8 +13,7 @@ namespace LocalNotificationsApp.Interfaces
             string message,
             long startSeconds,
             bool isRepeated = false,
-            /*long[] intervalSeconds = null*/
-            long intervalSeconds = 0);
+            long[] intervalSeconds = null);
         void ReceiveNotification(string title, string message);
     }
 }
